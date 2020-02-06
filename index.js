@@ -6,11 +6,10 @@ const dateUp = Date.now();
 
 app.get('/', (req, res) => {
   const today = new Date();
-  console.log(req.headers);
-  console.log(req.headers)
   res.json({
     date: today,
-    up: `${(Date.now() - dateUp)/1000} seg. esto esta que te cagas`,
+    up: `${(Date.now() - dateUp)/1000}`,
+    headers: req.headers,
   });
 });
 
