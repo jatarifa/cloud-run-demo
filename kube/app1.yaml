@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1
+  labels:
+    app: app1
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: app1
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+      - name: app
+        image: gcr.io/feisty-coder-267320/cognitive-app-1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

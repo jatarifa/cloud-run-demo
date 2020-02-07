@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: portal-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: portal
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - portal-gateway
+  http:
+  - match:
+    - headers:
+        x-tenant:
+          exact: tenerife
+    route:
+    - destination:
+        host: app1
+        port:
+          number: 8080
+  - match:
+    - headers:
+        x-tenant:
+          exact: lanzarote
+    route:
+    - destination:
+        host: app2
+        port:
+          number: 8080

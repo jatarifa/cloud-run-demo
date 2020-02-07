@@ -1,14 +1,39 @@
 steps:
   # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/hello-cloud-run:${SHORT_SHA}', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/cognitive-app-1:$REVISION_ID', './app1']
   # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/hello-cloud-run']
-  # deploy container image to Cloud Run
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['beta', 'run', 'deploy', 'hello-cloud-run', '--image', 'gcr.io/$PROJECT_ID/hello-cloud-run:${SHORT_SHA}', '--region', 'us-central1', '--allow-unauthenticated', '--platform', 'managed']
-  env:
-  - 'PORT=8080'
+  args: ['push', 'gcr.io/$PROJECT_ID/cognitive-app-1']
+  # build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/cognitive-app-2:$REVISION_ID', './app2']
+  # push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/cognitive-app-2']
+  # deploy container service app1
+- name: 'gcr.io/cloud-builders/gke-deploy:stable'
+  args:
+  - 'run'
+  - '--filename=kube/app1-service.yaml'
+  - '--image=gcr.io/$PROJECT_ID/cognitive-app-1:$REVISION_ID'
+  - '--location=europe-west3-a'
+  - '--cluster=hello-istio'
+  # deploy container service app2
+- name: 'gcr.io/cloud-builders/gke-deploy:stable'
+  args:
+  - 'run'
+  - '--filename=kube/app2-service.yaml'
+  - '--image=gcr.io/$PROJECT_ID/cognitive-app-2:$REVISION_ID'
+  - '--location=europe-west3-a'
+  - '--cluster=hello-istio'
+  # deploy container gateway
+- name: 'gcr.io/cloud-builders/gke-deploy:stable'
+  args:
+  - 'run'
+  - '--filename=kube/gateway.yaml'
+  - '--location=europe-west3-a'
+  - '--cluster=hello-istio'
 images:
-- gcr.io/$PROJECT_ID/hello-cloud-run
+- gcr.io/$PROJECT_ID/cognitive-app-1
+- gcr.io/$PROJECT_ID/cognitive-app-2
