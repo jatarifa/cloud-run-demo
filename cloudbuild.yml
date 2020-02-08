@@ -17,26 +17,26 @@ steps:
   - 'run'
   - '--filename=kube/app1-service.yaml'
   - '--image=gcr.io/$PROJECT_ID/cognitive-app-1:$REVISION_ID'
-  - '--cluster=istio-cluster'
-  - '--location=europe-west2'
-  - '--output=output/suggested1'
+  - '--cluster=poc-cluster'
+  - '--location=europe-west1'
+  - '--output=output1'
   # deploy container service app2
 - name: 'gcr.io/cloud-builders/gke-deploy:stable'
   args:
   - 'run'
   - '--filename=kube/app2-service.yaml'
   - '--image=gcr.io/$PROJECT_ID/cognitive-app-2:$REVISION_ID'
-  - '--cluster=istio-cluster'
-  - '--location=europe-west2'
-  - '--output=output/suggested2'
+  - '--cluster=poc-cluster'
+  - '--location=europe-west1'
+  - '--output=output2'
   # deploy container gateway
 - name: 'gcr.io/cloud-builders/gke-deploy:stable'
   args:
   - 'run'
   - '--filename=kube/gateway.yaml'
-  - '--cluster=istio-cluster'
-  - '--location=europe-west2'
-  - '--output=output/suggested3'
+  - '--cluster=poc-cluster'
+  - '--location=europe-west1'
+  - '--output=output3'
 images:
 - gcr.io/$PROJECT_ID/cognitive-app-1
 - gcr.io/$PROJECT_ID/cognitive-app-2
