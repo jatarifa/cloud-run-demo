@@ -17,4 +17,4 @@ resources:
     enableTracing: true
     enableServiceGraph: true
     enableBookInfoSample: false
-    installIstioRelease: 1.4.3
+    installIstioRelease: 1.4.4
