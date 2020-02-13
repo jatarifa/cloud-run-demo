@@ -111,6 +111,7 @@ resources:
           kubectl -n istio-system wait --for=condition=complete job --all
 
           helm template install/kubernetes/helm/istio --name istio --namespace istio-system \
+            --set global.mtls.enabled=true \
             --set tracing.enabled=true \
             --set ingress.enabled=true \
             --set gateways.enabled=true \
