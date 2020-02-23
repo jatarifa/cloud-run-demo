@@ -8,8 +8,9 @@ steps:
 - name: 'gcr.io/cloud-builders/gke-deploy:stable'
   args:
   - 'run'
+  - '--verbose'
   - '--filename=kube/app1-kservice.yaml'
-  - '--image=gcr.io/$PROJECT_ID/cognitive-app-1:$COMMIT_SHA'
+  - '--image=gcr.io/$PROJECT_ID/cognitive-app-1'
   - '--cluster=poc-cluster'
   - '--location=us-central1-b'
   - '--output=output1'
@@ -25,8 +26,9 @@ steps:
 - name: 'gcr.io/cloud-builders/gke-deploy:stable'
   args:
   - 'run'
+  - '--verbose'
   - '--filename=kube/app2-kservice.yaml'
-  - '--image=gcr.io/$PROJECT_ID/cognitive-app-2:$COMMIT_SHA'
+  - '--image=gcr.io/$PROJECT_ID/cognitive-app-2'
   - '--cluster=poc-cluster'
   - '--location=us-central1-b'
   - '--output=output2'
