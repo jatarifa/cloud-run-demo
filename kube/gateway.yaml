@@ -12,7 +12,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - app.test.cluster.local
+    - api.lanzarote.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -21,25 +21,31 @@ metadata:
   namespace: default
 spec:
   hosts:
-  - app.test.cluster.local
+  - api.lanzarote.com
   gateways:
   - portal-gateway
   http:
   - match:
     - headers:
         x-tenant:
-          exact: tenerife
+          exact: restaurante
+    rewrite:
+      authority: app1.default.example.com
     route:
-    - destination:
-        host: app1
-        port:
-          number: 8080
+      - destination:
+          host: istio-ingressgateway.istio-system.svc.cluster.local
+          port:
+            number: 80
+        weight: 100
   - match:
     - headers:
         x-tenant:
-          exact: lanzarote
+          exact: cabildo
+    rewrite:
+      authority: app2.default.example.com
     route:
-    - destination:
-        host: app2
-        port:
-          number: 8080
+      - destination:
+          host: istio-ingressgateway.istio-system.svc.cluster.local
+          port:
+            number: 80
+        weight: 100
