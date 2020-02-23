@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: app1
   namespace: default
+  labels:
+    serving.knative.dev/visibility: cluster-local
 spec:
   template:
     metadata:
@@ -11,4 +13,4 @@ spec:
         autoscaling.knative.dev/maxScale: "10"
     spec:
       containers:
-        - image: gcr.io/poc-lanzarote/cognitive-app-1:bc166a401e185e7e171f7e336dc96e4fbab66722
+        - image: gcr.io/poc-lanzarote/cognitive-app-1:latest
