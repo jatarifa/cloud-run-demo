@@ -41,5 +41,5 @@ steps:
   - '--location=us-central1-b'
   - '--output=output3'
 images:
-- gcr.io/$PROJECT_ID/cognitive-app-1:latest
-- gcr.io/$PROJECT_ID/cognitive-app-2:latest
+- gcr.io/$PROJECT_ID/cognitive-app-1
+- gcr.io/$PROJECT_ID/cognitive-app-2
