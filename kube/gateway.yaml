@@ -1,51 +1,36 @@
 apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: portal-gateway
-  namespace: default
-spec:
-  selector:
-    istio: ingressgateway # use istio default controller
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - api.lanzarote.com
----
-apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: portal
+  name: portal-entry-route
   namespace: default
 spec:
-  hosts:
-  - api.lanzarote.com
   gateways:
-  - portal-gateway
+  - knative-ingress-gateway.knative-serving.svc.cluster.local
+  hosts:
+  - app.test.cluster.local
   http:
   - match:
     - headers:
         x-tenant:
-          exact: restaurante
+          exact: tenerife
     rewrite:
-      authority: app1.default.example.com
+      authority: app1.default.svc.cluster.local
     route:
       - destination:
-          host: istio-ingressgateway.istio-system.svc.cluster.local
+          host: cluster-local-gateway.istio-system.svc.cluster.local
           port:
             number: 80
         weight: 100
   - match:
-    - headers:
-        x-tenant:
-          exact: cabildo
+    - match:
+      - headers:
+          x-tenant:
+            exact: lanzarote
     rewrite:
-      authority: app2.default.example.com
+      authority: app2.default.svc.cluster.local
     route:
       - destination:
-          host: istio-ingressgateway.istio-system.svc.cluster.local
+          host: cluster-local-gateway.istio-system.svc.cluster.local
           port:
             number: 80
         weight: 100
