@@ -11,4 +11,4 @@ spec:
         autoscaling.knative.dev/maxScale: "10"
     spec:
       containers:
-        - image: gcr.io/poc-lanzarote/cognitive-app-1
+        - image: gcr.io/poc-lanzarote/cognitive-app-1:latest
