@@ -15,7 +15,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gke-deploy:stable'
   args:
   - 'run'
-  - '--filename=kube/app1-service.yaml'
+  - '--filename=kube/app1-kservice.yaml'
   - '--image=gcr.io/$PROJECT_ID/cognitive-app-1:$REVISION_ID'
   - '--cluster=poc-cluster'
   - '--location=europe-west1-b'
@@ -24,7 +24,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gke-deploy:stable'
   args:
   - 'run'
-  - '--filename=kube/app2-service.yaml'
+  - '--filename=kube/app2-kservice.yaml'
   - '--image=gcr.io/$PROJECT_ID/cognitive-app-2:$REVISION_ID'
   - '--cluster=poc-cluster'
   - '--location=europe-west1-b'
