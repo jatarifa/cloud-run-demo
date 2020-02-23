@@ -2,6 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: portal-gateway
+  namespace: default
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -17,6 +18,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: portal
+  namespace: default
 spec:
   hosts:
   - app.test.cluster.local

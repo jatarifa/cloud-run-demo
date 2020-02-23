@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: app1-knative
+  name: app2
   namespace: default
 spec:
   template:
@@ -11,4 +11,4 @@ spec:
         autoscaling.knative.dev/maxScale: "10"
     spec:
       containers:
-        - image: gcr.io/poc-lanzarote/cognitive-app-2:latest
+        - image: docker pull gcr.io/poc-lanzarote/cognitive-app-2:b7a81d1ab7d0bcc067d399a75b639b36f2c5b426
