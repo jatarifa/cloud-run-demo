@@ -144,7 +144,7 @@ spec:
     targetPort: 8080
 EOF
 
-
-export TOPIC_NAME=testing
-gcloud pubsub topics publish $TOPIC_NAME --message='{"msg": "Hello Knative"}'
-kubectl logs --selector app=event-display -c user-container
+#kubectl wait --for=condition=available --timeout=600s deployment/controller -n cloud-run-events
+#export TOPIC_NAME=testing
+#gcloud pubsub topics publish $TOPIC_NAME --message='{"msg": "Hello Knative"}'
+#kubectl logs --selector app=event-display -c user-container
