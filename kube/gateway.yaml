@@ -11,7 +11,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - app.test.cluster.local
+    - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -19,25 +19,28 @@ metadata:
   name: portal
 spec:
   hosts:
-  - app.test.cluster.local
+  - "*"
   gateways:
   - portal-gateway
   http:
   - match:
-    - headers:
-        x-tenant:
-          exact: tenerife
+    - authority:
+        exact: test1.asistentesvirtuales.com
     route:
     - destination:
         host: app1
         port:
           number: 8080
   - match:
-    - headers:
-        x-tenant:
-          exact: lanzarote
+    - authority:
+        exact: test2.asistentesvirtuales.com
     route:
     - destination:
         host: app2
+        port:
+          number: 8080
+  - route:
+    - destination:
+        host: app1
         port:
           number: 8080

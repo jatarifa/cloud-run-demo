@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: gcr.io/poc-lanzarote/cognitive-app-1:latest
-        imagePullPolicy: IfNotPresent
+        image: tomcat:7-slim
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
