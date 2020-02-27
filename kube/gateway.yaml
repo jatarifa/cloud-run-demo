@@ -28,19 +28,11 @@ spec:
         exact: test1.asistentesvirtuales.com
     route:
     - destination:
-        host: app1
-        port:
-          number: 8080
-  - match:
-    - authority:
-        exact: test2.asistentesvirtuales.com
-    route:
-    - destination:
-        host: app2
+        host: web-asistentesvirtuales
         port:
           number: 8080
   - route:
     - destination:
-        host: app1
+        host: web-asistentesvirtuales
         port:
           number: 8080

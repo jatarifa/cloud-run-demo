@@ -24,6 +24,8 @@ spec:
     spec:
       containers:
       - image: marketplace.gcr.io/google/redis3
+        command: ['redis-server']
+        args: ['--requirepass', 'vradmin']
         imagePullPolicy: IfNotPresent
         name: redis
         volumeMounts:
