@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-asistentesvirtuales
+  labels:
+    app: web-asistentesvirtuales
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: web-asistentesvirtuales
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-asistentesvirtuales
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-asistentesvirtuales
+    spec:
+      containers:
+      - name: app
+        image: gcr.io/poc-lanzarote/asistentesvirtuales-web:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
